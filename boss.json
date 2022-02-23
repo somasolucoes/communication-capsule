@@ -1,0 +1,12 @@
+{
+	"name": "communication-capsule",
+	"description": "Capsule to help communicate with external services",
+	"version": "1.0.0",
+	"homepage": "https://somasolucoes.com/",
+	"mainsrc": "./",
+	"projects": [],
+	"dependencies": {
+		"https://github.com/somasolucoes/core-capsule": "^v1.0.0",
+		"https://github.com/superflexible/tgputtylib": "^13"
+	}
+}

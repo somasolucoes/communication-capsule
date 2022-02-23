@@ -1,0 +1,22 @@
+{
+	"hash": "ccf96245587d7b138513f2bd86bf628c",
+	"updated": "2022-02-23T11:52:11.4552494-03:00",
+	"installedModules": {
+		"https://github.com/somasolucoes/core-capsule": {
+			"name": "core-capsule",
+			"version": "v1.0.0",
+			"hash": "1ccb95e79ca95a9232b89bd0da071263",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		},
+		"https://github.com/superflexible/tgputtylib": {
+			"name": "tgputtylib",
+			"version": "13",
+			"hash": "656811d26c2a2cd11afe275544391f89",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		}
+	}
+}
