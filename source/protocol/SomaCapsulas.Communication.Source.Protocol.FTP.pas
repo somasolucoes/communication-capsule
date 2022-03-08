@@ -13,19 +13,19 @@ type
   private
     FDirectory: string;
     FIsPassive: Boolean;
-    FSubDomain: string;
+    FAccessDomain: string;
     function GetDirectory: string;
     function GetIsPassive: Boolean;
-    function GetSubDomain: string;
+    function GetAccessDomain: string;
     procedure SetDirectory(const Value: string);
     procedure SetIsPassive(const Value: Boolean);
-    procedure SetSubDomain(const Value: string);
+    procedure SetAccessDomain(const Value: string);
   protected
     procedure Initialize;
   public
     property IsPassive: Boolean read GetIsPassive write SetIsPassive;
     property Directory: string read GetDirectory write SetDirectory;
-    property SubDomain: string read GetSubDomain write SetSubDomain;
+    property AccessDomain: string read GetAccessDomain write SetAccessDomain;
     function Connect: Boolean; virtual; abstract;
     function Connected: Boolean; virtual; abstract;
     procedure Disconnect; virtual; abstract;
@@ -34,7 +34,7 @@ type
     procedure RetrieveFilesName(var AStringList: TStringList; AMask: string; ADetailed: Boolean); overload; virtual; abstract;
     procedure RetrieveFilesName(var AStringList: TStringList; ADetailed: Boolean); overload; virtual; abstract;
     procedure RetrieveFilesName(var AStringList: TStringList); overload; virtual; abstract;
-    procedure UploadFile(ALocalFile: string); virtual; abstract;
+    function UploadFile(ALocalFile: string): string; virtual; abstract;
     procedure DownloadFile(AServerFile, ALocalFile: string); overload; virtual; abstract;
     procedure DownloadFile(AServerFile: string; var AMemoryStream: TMemoryStream); overload; virtual; abstract;
     procedure DeleteFile(AFileName: string); virtual; abstract;
@@ -56,7 +56,7 @@ type
     procedure RetrieveFilesName(var AStringList: TStringList; AMask: string; ADetailed: Boolean); overload; override;
     procedure RetrieveFilesName(var AStringList: TStringList; ADetailed: Boolean); overload; override;
     procedure RetrieveFilesName(var AStringList: TStringList); overload; override;
-    procedure UploadFile(ALocalFile: string); override;
+    function UploadFile(ALocalFile: string): string; override;
     procedure DownloadFile(AServerFile, ALocalFile: string); overload; override;
     procedure DownloadFile(AServerFile: string; var AMemoryStream: TMemoryStream); overload; override;
     procedure DeleteFile(AFileName: string); override;
@@ -91,9 +91,9 @@ begin
   Result := Self.FIsPassive;
 end;
 
-function TFTP.GetSubDomain: string;
+function TFTP.GetAccessDomain: string;
 begin
-  Result := Self.FSubDomain;
+  Result := Self.FAccessDomain;
 end;
 
 procedure TFTP.SetDirectory(const Value: string);
@@ -106,9 +106,12 @@ begin
   FIsPassive := Value;
 end;
 
-procedure TFTP.SetSubDomain(const Value: string);
+procedure TFTP.SetAccessDomain(const Value: string);
 begin
-  FSubDomain := Value;
+  FAccessDomain := Trim(Value);
+  if (FAccessDomain <> EmptyStr) and (FAccessDomain[Length(FAccessDomain)] = '/') then
+    Delete(FAccessDomain, Length(FAccessDomain), 1);
+  FAccessDomain := FAccessDomain + '/';
 end;
 
 { TFTPClientIndy }
@@ -181,12 +184,16 @@ begin
   Self.Component.List(AStringList, EmptyStr, ADetailed);
 end;
 
-procedure TFTPClientIndy.UploadFile(ALocalFile: string);
+function TFTPClientIndy.UploadFile(ALocalFile: string): string;
+var
+  LServerFile: string;
 begin
   if not FileExists(ALocalFile) then
     raise ESomaCapsulasCommunicationFTP.Create(Format(E_SCC_0001, [ALocalFile]));
   Initialize;
   Self.Component.Put(ALocalFile);
+  LServerFile := ExtractFileName(ALocalFile);
+  Result := Self.AccessDomain + LServerFile;
 end;
 
 procedure TFTPClientIndy.DownloadFile(AServerFile: string; var AMemoryStream: TMemoryStream);

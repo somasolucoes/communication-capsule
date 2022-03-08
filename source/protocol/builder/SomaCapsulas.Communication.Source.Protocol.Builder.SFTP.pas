@@ -15,7 +15,7 @@ type
     function OnHost(AHost: string): ISFTPBuilder;
     function AtPort(APort: Word): ISFTPBuilder;
     function ChangeToDir(ADir: string): ISFTPBuilder;
-    function AvaliableOn(ASubDomain: string): ISFTPBuilder;
+    function AvaliableOn(AAccessDomain: string): ISFTPBuilder;
     function Build: ISFTP;
     constructor Create; virtual; abstract;
   end;
@@ -37,9 +37,9 @@ begin
   Result := Self.FSFTP;
 end;
 
-function TSFTPBuilder.AvaliableOn(ASubDomain: string): ISFTPBuilder;
+function TSFTPBuilder.AvaliableOn(AAccessDomain: string): ISFTPBuilder;
 begin
-  Self.FSFTP.SubDomain := ASubDomain;
+  Self.FSFTP.AccessDomain := AAccessDomain;
   Result := Self;
 end;
 

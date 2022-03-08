@@ -30,13 +30,13 @@ type
   ['{06210FD6-6E57-4D1D-9CCE-29E02E09757B}']
     function GetDirectory: string;
     function GetIsPassive: Boolean;
-    function GetSubDomain: string;
+    function GetAccessDomain: string;
     procedure SetDirectory(const Value: string);
     procedure SetIsPassive(const Value: Boolean);
-    procedure SetSubDomain(const Value: string);
+    procedure SetAccessDomain(const Value: string);
     property IsPassive: Boolean read GetIsPassive write SetIsPassive;
     property Directory: string read GetDirectory write SetDirectory;
-    property SubDomain: string read GetSubDomain write SetSubDomain;
+    property AccessDomain: string read GetAccessDomain write SetAccessDomain;
     function Connect: Boolean;
     function Connected: Boolean;
     procedure Disconnect;
@@ -45,7 +45,7 @@ type
     procedure RetrieveFilesName(var AStringList: TStringList; AMask: string; ADetailed: Boolean); overload;
     procedure RetrieveFilesName(var AStringList: TStringList; ADetailed: Boolean); overload;
     procedure RetrieveFilesName(var AStringList: TStringList); overload;
-    procedure UploadFile(APath: string);
+    function UploadFile(ALocalFile: string): string;
     procedure DownloadFile(AServerFile, ALocalFile: string); overload;
     procedure DownloadFile(AServerFile: string; var AMemoryStream: TMemoryStream); overload;
     procedure DeleteFile(AFileName: string);

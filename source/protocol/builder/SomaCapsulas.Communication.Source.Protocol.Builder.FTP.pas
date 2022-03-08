@@ -15,7 +15,7 @@ type
     function OnHost(AHost: string): IFTPBuilder;
     function AtPort(APort: Word): IFTPBuilder;
     function ChangeToDir(ADir: string): IFTPBuilder;
-    function AvaliableOn(ASubDomain: string): IFTPBuilder;
+    function AvaliableOn(AAccessDomain: string): IFTPBuilder;
     function IsPassive(AIsPassive: Boolean): IFTPBuilder;
     function Build: IFTP;
     constructor Create; virtual; abstract;
@@ -44,9 +44,9 @@ begin
   Result := Self;
 end;
 
-function TFTPBuilder.AvaliableOn(ASubDomain: string): IFTPBuilder;
+function TFTPBuilder.AvaliableOn(AAccessDomain: string): IFTPBuilder;
 begin
-  Self.FFTP.SubDomain := ASubDomain;
+  Self.FFTP.AccessDomain := AAccessDomain;
   Result := Self;
 end;
 

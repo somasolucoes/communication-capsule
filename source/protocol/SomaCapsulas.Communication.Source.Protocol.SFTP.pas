@@ -37,7 +37,7 @@ type
     procedure RetrieveFilesName(var AStringList: TStringList; AMask: string; ADetailed: Boolean); overload; override;
     procedure RetrieveFilesName(var AStringList: TStringList; ADetailed: Boolean); overload; override;
     procedure RetrieveFilesName(var AStringList: TStringList); overload; override;
-    procedure UploadFile(ALocalFile: string); override;
+    function UploadFile(ALocalFile: string): string; override;
     procedure DownloadFile(AServerFile, ALocalFile: string); overload; override;
     procedure DownloadFile(AServerFile: string; var AMemoryStream: TMemoryStream); overload; override;
     procedure DeleteFile(AFileName: string); override;
@@ -173,10 +173,11 @@ begin
   ClenRefs;
 end;
 
-procedure TSFTPPutty.UploadFile(ALocalFile: string);
+function TSFTPPutty.UploadFile(ALocalFile: string): string;
 var
   LDateTime: TDateTimeInfoRec;
   LServerFile: string;
+  LAcessDomainWithServerName: string;
 begin
   if not FileExists(ALocalFile) then
     raise ESomaCapsulasCommunicationSFTP.Create(Format(E_SCC_0002, [ALocalFile]));
@@ -185,6 +186,7 @@ begin
   FileGetDateTimeInfo(ALocalFile, LDateTime);
   Self.Component.UploadFile(ALocalFile, LServerFile, False);
   Self.Component.SetModifiedDate(LServerFile, LDateTime.TimeStamp, False);
+  Result := Self.AccessDomain + LServerFile;
 end;
 
 function TSFTPPutty.VerifyHostKey(const AHost: PAnsiChar;
