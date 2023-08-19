@@ -12,7 +12,12 @@ uses
   SomaCapsulas.Communication.Source.Protocol.FTP in 'source\protocol\SomaCapsulas.Communication.Source.Protocol.FTP.pas',
   SomaCapsulas.Communication.Source.Protocol.SFTP in 'source\protocol\SomaCapsulas.Communication.Source.Protocol.SFTP.pas',
   SomaCapsulas.Communication.Source.Protocol.Builder.FTP in 'source\protocol\builder\SomaCapsulas.Communication.Source.Protocol.Builder.FTP.pas',
-  SomaCapsulas.Communication.Source.Protocol.Builder.SFTP in 'source\protocol\builder\SomaCapsulas.Communication.Source.Protocol.Builder.SFTP.pas';
+  SomaCapsulas.Communication.Source.Protocol.Builder.SFTP in 'source\protocol\builder\SomaCapsulas.Communication.Source.Protocol.Builder.SFTP.pas',
+  SomaCapsulas.Communication.Source.AWS.ConnectionInfo in 'source\aws\SomaCapsulas.Communication.Source.AWS.ConnectionInfo.pas',
+  SomaCapsulas.Communication.Source.AWS.Core in 'source\aws\SomaCapsulas.Communication.Source.AWS.Core.pas',
+  SomaCapsulas.Communication.Source.AWS.Response in 'source\aws\SomaCapsulas.Communication.Source.AWS.Response.pas',
+  SomaCapsulas.Communication.Source.AWS.S3 in 'source\aws\SomaCapsulas.Communication.Source.AWS.S3.pas',
+  SomaCapsulas.Communication.Source.AWS.Factory.S3 in 'source\aws\factory\SomaCapsulas.Communication.Source.AWS.Factory.S3.pas';
 
 var
   LReadLnToWait: string;

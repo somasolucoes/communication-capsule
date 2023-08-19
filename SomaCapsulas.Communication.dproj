@@ -5,7 +5,7 @@
         <FrameworkType>None</FrameworkType>
         <MainSource>SomaCapsulas.Communication.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Release</Config>
+        <Config Condition="'$(Config)'==''">Debug</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>1</TargetedPlatforms>
         <AppType>Console</AppType>
@@ -196,6 +196,11 @@
         <DCCReference Include="source\protocol\SomaCapsulas.Communication.Source.Protocol.SFTP.pas"/>
         <DCCReference Include="source\protocol\builder\SomaCapsulas.Communication.Source.Protocol.Builder.FTP.pas"/>
         <DCCReference Include="source\protocol\builder\SomaCapsulas.Communication.Source.Protocol.Builder.SFTP.pas"/>
+        <DCCReference Include="source\aws\SomaCapsulas.Communication.Source.AWS.ConnectionInfo.pas"/>
+        <DCCReference Include="source\aws\SomaCapsulas.Communication.Source.AWS.Core.pas"/>
+        <DCCReference Include="source\aws\SomaCapsulas.Communication.Source.AWS.Response.pas"/>
+        <DCCReference Include="source\aws\SomaCapsulas.Communication.Source.AWS.S3.pas"/>
+        <DCCReference Include="source\aws\factory\SomaCapsulas.Communication.Source.AWS.Factory.S3.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -234,6 +239,12 @@
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="dist\exe\SomaCapsulas.Communication.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>SomaCapsulas_Communication.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="dist\exe\SomaCapsulas.Communication.exe" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>SomaCapsulas_Communication.exe</RemoteName>
                         <Overwrite>true</Overwrite>

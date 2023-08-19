@@ -2,6 +2,7 @@ unit SomaCapsulas.Communication.Types;
 
 interface
 
-//type
+type
+  TAWSType = (awstWrapper);
 
 implementation end.

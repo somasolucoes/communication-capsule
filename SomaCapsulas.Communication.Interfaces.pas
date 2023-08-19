@@ -1,10 +1,7 @@
 unit SomaCapsulas.Communication.Interfaces;
-
 interface
-
 uses
   System.Classes, System.SysUtils, Data.Cloud.AmazonAPI;
-
 type
   IProtocol = interface
   ['{FE996318-48A0-4529-9007-CAF4324815E6}']
@@ -76,6 +73,52 @@ type
     function ChangeToDir(ADir: string): ISFTPBuilder;
     function AvaliableOn(ASubDomain: string): ISFTPBuilder;
     function Build: ISFTP;
+  end;
+
+  IAWSConnectionInfo = interface
+  ['{DBA4437D-68DF-4CBE-8EC1-5EE0253BB6A6}']
+    function GetAccessKeyID: string;
+    function GetDefaultRegion: TAmazonRegion;
+    function GetSecretAccessKey: string;
+    procedure SetAccessKeyID(const Value: string);
+    procedure SetDefaultRegion(const Value: TAmazonRegion);
+    procedure SetSecretAccessKey(const Value: string);
+    property AccessKeyID: string read GetAccessKeyID write SetAccessKeyID;
+    property SecretAccessKey: string read GetSecretAccessKey write SetSecretAccessKey;
+    property DefaultRegion: TAmazonRegion read GetDefaultRegion write SetDefaultRegion;
+  end;
+
+  IAWSResponseStatus = interface
+  ['{85487A7F-FD4F-4EFB-AD17-D320D21284D6}']
+    function GetCode: Word;
+    function GetText: string;
+    procedure SetCode(const Value: Word);
+    procedure SetText(const Value: string);
+    property Code: Word read GetCode write SetCode;
+    property Text: string read GetText write SetText;
+  end;
+
+
+  IAWSResponse = interface
+  ['{DFB9924A-2FAA-47FB-8AD8-37CFDB9CD298}']
+    function GetStatus: IAWSResponseStatus;
+    function GetCloudPath: string;
+    procedure SetStatus(const Value: IAWSResponseStatus);
+    procedure SetCloudPath(const Value: string);
+    property Status: IAWSResponseStatus read GetStatus write SetStatus;
+    property CloudPath: string read GetCloudPath write SetCloudPath;
+  end;
+
+  IAWS = interface
+  ['{F121EE9A-BD45-498C-A462-CF6525B2FF03}']
+    function GetAWSConnectionInfo: IAWSConnectionInfo;
+    procedure SetAWSConnectionInfo(const Value: IAWSConnectionInfo);
+    property AWSConnectionInfo: IAWSConnectionInfo read GetAWSConnectionInfo write SetAWSConnectionInfo;
+  end;
+
+  IAWSS3 = interface(IAWS)
+  ['{B3118E4A-5E23-417F-B3E4-2AFEFD4EDB7C}']
+    function Upload(ABucketName, AFilePath, AObjectName: string): IAWSResponse;
   end;
 
 implementation end.
